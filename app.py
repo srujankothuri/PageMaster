@@ -413,3 +413,9 @@ if st.session_state.vector_db is not None:
                 mime="application/pdf",
                 key="export_chat_log_static"
             )
+
+
+st.markdown(
+    '<div style="text-align: center; color: #555555; font-size: 0.9em; margin-top: 20px;">© 2025 PageMaster Chatbot. All rights reserved. Developed by Srujan Kothuri.</div>',
+    unsafe_allow_html=True
+)
