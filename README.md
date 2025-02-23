@@ -40,4 +40,7 @@ Follow these steps to set up and run PageMaster:
 - Explore suggested questions for deeper insights.
 - Adjust the summary length using the slider.
 
+### Live Application
+You can access PageMaster anytime at: [PageMaster App](https://pagemaster-srujan-kothuri.streamlit.app)
+
 Enjoy using **PageMaster** to simplify document exploration and understanding! 🚀
