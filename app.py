@@ -15,9 +15,8 @@ import random
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-import pypdf.errors  # Import for specific exception handling
+import pypdf.errors
 
-# Set up page configuration and styling
 st.set_page_config(page_title="PageMaster Chatbot", page_icon="⚖️", layout="wide")
 st.markdown(
     """
@@ -255,10 +254,19 @@ if uploaded_file is not None and st.session_state.processed_file != uploaded_fil
 
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=100)
         texts = text_splitter.split_documents(documents)
-        embeddings = HuggingFaceEmbeddings(
-            model_name="nomic-ai/nomic-embed-text-v1",
-            model_kwargs={"trust_remote_code": True, "revision": "289f532e14dbbbd5a04753fa58739e9ba766f3c7"}
-        )
+        try:
+            embeddings = HuggingFaceEmbeddings(
+                model_name="nomic-ai/nomic-embed-text-v1",
+                model_kwargs={"trust_remote_code": True, "revision": "289f532e14dbbbd5a04753fa58739e9ba766f3c7"}
+            )
+            # Fallback option (uncomment to test):
+            # embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        except ImportError as e:
+            st.error(f"Failed to initialize embeddings due to missing dependency: {str(e)}")
+            raise
+        except Exception as e:
+            st.error(f"Error initializing embeddings: {str(e)}")
+            raise
         st.session_state.vector_db = FAISS.from_documents(texts, embeddings)
         st.session_state.vector_db.save_local("10Q_vector_db")
 
