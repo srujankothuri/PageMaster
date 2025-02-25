@@ -9,3 +9,6 @@ pycryptodome
 sentence-transformers
 torch
 transformers
+numpy
+tokenizers
+safe-tensors
