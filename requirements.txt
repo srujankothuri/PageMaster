@@ -5,3 +5,4 @@ langchain-huggingface
 faiss-cpu  
 pypdf  
 reportlab  
+pycryptodome
