@@ -1,24 +1,7 @@
-# Core dependencies for the Streamlit app
 streamlit
-
-# LangChain and related dependencies for document processing and embeddings
-langchain
 langchain-community
 langchain-together
 langchain-huggingface
-
-# Embeddings and vector store
-faiss-cpu
-sentence-transformers
-
-# PDF processing
-PyPDF2
-
-# Together AI API (LLM)
-together
-
-# PDF generation for chat logs and summaries
-reportlab
-
-# General utilities
-regex
+faiss-cpu  
+pypdf  
+reportlab  
