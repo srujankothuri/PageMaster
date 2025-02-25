@@ -6,3 +6,5 @@ faiss-cpu
 pypdf  
 reportlab  
 pycryptodome
+sentence-transformers
+torch
