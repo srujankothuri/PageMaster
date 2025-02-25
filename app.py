@@ -133,7 +133,7 @@ st.markdown('<div class="header">PageMaster Chatbot</div>', unsafe_allow_html=Tr
 st.markdown('<div class="caption">Unleash the Power of Your PDFs with PageMaster</div>', unsafe_allow_html=True)
 
 # Full-width image display
-image_path = "chatbot_legal.jpeg"
+image_path = "bot1.png"
 if os.path.exists(image_path):
     st.image(image_path, use_container_width=True, output_format="JPEG")
 else:
@@ -368,6 +368,20 @@ else:
 if st.session_state.vector_db is not None:
     st.markdown("### Chat with PageMaster")
     
+    # Single reset and export buttons at the top
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.button('Reset All Chat 🗑️', on_click=reset_conversation, key="reset_chat")
+    with col2:
+        chat_log_buffer = export_chat_logs()
+        st.download_button(
+            label="Export Chat Log",
+            data=chat_log_buffer,
+            file_name="chat_log.pdf",
+            mime="application/pdf",
+            key="export_chat_log"
+        )
+    
     if st.session_state.suggested_questions:
         st.markdown("#### Suggested Questions")
         for i, suggestion in enumerate(st.session_state.suggested_questions):
@@ -384,38 +398,5 @@ if st.session_state.vector_db is not None:
     if input_prompt:
         if qa is not None:
             process_question(qa, input_prompt, db_retriever)
-            col1, col2 = st.columns([1, 1])
-            with col1:
-                st.button('Reset All Chat 🗑️', on_click=reset_conversation)
-            with col2:
-                chat_log_buffer = export_chat_logs()
-                st.download_button(
-                    label="Export Chat Log",
-                    data=chat_log_buffer,
-                    file_name="chat_log.pdf",
-                    mime="application/pdf",
-                    key="export_chat_log"
-                )
         else:
             st.error("Please upload a file to enable the chatbot.")
-    
-    # Add export chat log button even if no input yet, as long as there’s chat history
-    if st.session_state.messages:
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            st.button('Reset All Chat 🗑️', on_click=reset_conversation)
-        with col2:
-            chat_log_buffer = export_chat_logs()
-            st.download_button(
-                label="Export Chat Log",
-                data=chat_log_buffer,
-                file_name="chat_log.pdf",
-                mime="application/pdf",
-                key="export_chat_log_static"
-            )
-
-
-st.markdown(
-    '<div style="text-align: center; color: #555555; font-size: 0.9em; margin-top: 20px;">© 2025 PageMaster Chatbot. All rights reserved. Developed by Srujan Kothuri.</div>',
-    unsafe_allow_html=True
-)
