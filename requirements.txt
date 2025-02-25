@@ -11,4 +11,4 @@ torch
 transformers
 numpy
 tokenizers
-safe-tensors
+safetensors
