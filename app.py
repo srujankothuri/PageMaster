@@ -126,7 +126,7 @@ st.markdown(
 st.markdown('<div class="header">PageMaster Chatbot</div>', unsafe_allow_html=True)
 st.markdown('<div class="caption">Unleash the Power of Your PDFs with PageMaster</div>', unsafe_allow_html=True)
 
-image_path = "bot1.png"
+image_path = "chatbot_legal.jpeg"
 if os.path.exists(image_path):
     st.image(image_path, use_container_width=True, output_format="JPEG")
 else:
