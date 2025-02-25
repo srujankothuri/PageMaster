@@ -106,6 +106,14 @@ st.markdown(
         padding: 5px 15px;
         border-radius: 8px;
     }
+    .footer {
+        text-align: center;
+        font-size: 0.9em;
+        color: #555555;
+        padding: 20px 0;
+        margin-top: 20px;
+        border-top: 1px solid #0d47a1;
+    }
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     .stDecoration {display:none;}
@@ -259,8 +267,6 @@ if uploaded_file is not None and st.session_state.processed_file != uploaded_fil
                 model_name="nomic-ai/nomic-embed-text-v1",
                 model_kwargs={"trust_remote_code": True, "revision": "289f532e14dbbbd5a04753fa58739e9ba766f3c7"}
             )
-            # Fallback option (uncomment to test):
-            # embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
         except ImportError as e:
             st.error(f"Failed to initialize embeddings due to missing dependency: {str(e)}")
             raise
@@ -351,19 +357,6 @@ else:
 if st.session_state.vector_db is not None:
     st.markdown("### Chat with PageMaster")
     
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.button('Reset All Chat 🗑️', on_click=reset_conversation, key="reset_chat")
-    with col2:
-        chat_log_buffer = export_chat_logs()
-        st.download_button(
-            label="Export Chat Log",
-            data=chat_log_buffer,
-            file_name="chat_log.pdf",
-            mime="application/pdf",
-            key="export_chat_log"
-        )
-    
     if st.session_state.suggested_questions:
         st.markdown("#### Suggested Questions")
         for i, suggestion in enumerate(st.session_state.suggested_questions):
@@ -382,3 +375,20 @@ if st.session_state.vector_db is not None:
             process_question(qa, input_prompt, db_retriever)
         else:
             st.error("Please upload a file to enable the chatbot.")
+    
+    # Buttons moved below the chat interface
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.button('Reset All Chat 🗑️', on_click=reset_conversation, key="reset_chat")
+    with col2:
+        chat_log_buffer = export_chat_logs()
+        st.download_button(
+            label="Export Chat Log",
+            data=chat_log_buffer,
+            file_name="chat_log.pdf",
+            mime="application/pdf",
+            key="export_chat_log"
+        )
+
+# Footer section
+st.markdown('<div class="footer">PageMaster © 2025 All Rights Reserved Srujan Kothuri</div>', unsafe_allow_html=True)
